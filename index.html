@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para mi amor 💌</title>
     <style>
-        /* --- Estilos Generales y Fondo Completo --- */
+        /* --- 1. FONDO BLANCO Y GATITO TAMAÑO NORMAL --- */
         body {
-            background-color: #1a1a1a;
-            /* 'contain' hace que se vea la imagen entera de los gatitos sin recortar nada */
+            background-color: #ffffff; /* Blanco puro para fundirse con tus imágenes */
             background-image: url('gato.jpg');
             background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain; 
+            background-position: center top 10%; /* Gatito centrado arriba */
+            background-size: 350px; /* TAMAÑO FIJO: ¡Chau gato gigante! */
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
@@ -22,60 +21,56 @@
             overflow: hidden;
         }
 
-        /* --- Contenedor principal del sobre (Centro abajo) --- */
+        /* --- 2. CONTENEDOR DEL SOBRE --- */
         .sobre-contenedor {
             position: absolute;
-            bottom: 30px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
             cursor: pointer;
             transition: transform 0.4s ease;
             z-index: 10;
-            filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.9)); 
         }
         .sobre-contenedor:hover {
-            transform: translateX(-50%) scale(1.08);
+            transform: translateX(-50%) scale(1.05);
         }
 
-        /* --- El sobre visual con marco estético --- */
+        /* --- 3. EL SOBRE MÁGICO --- */
         .sobre {
-            width: 220px;
+            width: 250px;
             height: auto;
             image-rendering: pixelated;
             display: block;
-            border: 4px solid #ffb7c5;
-            border-radius: 12px;
-            background: #fff;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            /* ¡MAGIA! Esto borra el fondo blanco del JPG y deja solo tu dibujo */
+            mix-blend-mode: multiply; 
         }
 
         /* --- Texto inicial --- */
         .texto-inicio {
             position: absolute;
-            bottom: -35px;
+            bottom: -30px;
             width: 100%;
             text-align: center;
-            color: #ffe6eb;
+            color: #ff6b81; /* Rosita que se lee bien en blanco */
             font-size: 15px;
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
             animation: parpadear 1.5s infinite;
             pointer-events: none;
             white-space: nowrap;
         }
 
-        /* --- Estilos de la carta --- */
+        /* --- 4. LA CARTA --- */
         .carta {
             background-image: url('carta.png');
             background-size: 100% 100%;
             background-position: center;
             background-repeat: no-repeat;
-            width: 300px;
-            height: 390px;
-            padding: 40px 25px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            width: 320px;
+            height: 420px;
+            padding: 45px 30px; /* Espacio para que el texto no pise a tus gatitos editados */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             position: absolute;
-            bottom: 10px;
+            bottom: 20px; 
             left: 50%;
             transform: translateX(-50%) translateY(0) scale(0.8);
             z-index: 5;
@@ -83,23 +78,23 @@
             opacity: 0;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* Hace que el texto empiece desde arriba */
             align-items: center;
             box-sizing: border-box;
             color: #3b2f2f;
         }
         
         .carta h1 {
-            font-size: 17px;
-            margin-top: 0;
-            margin-bottom: 8px;
+            font-size: 18px;
+            margin-top: 10px;
+            margin-bottom: 15px;
             text-align: center;
             font-weight: bold;
         }
         
         .carta p {
-            line-height: 1.4;
-            font-size: 12px;
+            line-height: 1.5;
+            font-size: 13px;
             text-align: left;
             white-space: pre-line;
             margin: 0;
@@ -107,14 +102,14 @@
 
         /* --- Animación de apertura --- */
         .sobre-contenedor.abierto .carta {
-            transform: translateX(-50%) translateY(-210px) scale(1);
+            transform: translateX(-50%) translateY(-200px) scale(1);
             opacity: 1;
             z-index: 15;
         }
         
         .sobre-contenedor.abierto .sobre {
-            opacity: 0.2;
-            transform: scale(0.95);
+            opacity: 0; /* El sobre se oculta suavemente para que puedas leer bien la carta */
+            transition: opacity 0.5s ease;
         }
 
         .sobre-contenedor.abierto .texto-inicio {
@@ -130,18 +125,15 @@
 <body>
 
     <div class="sobre-contenedor" id="contenedorCarta">
-        <!-- Imagen local del sobre -->
         <img src="sobre.jpg" alt="Sobre de carta" class="sobre" draggable="false">
-        
-        <div class="texto-inicio">Toca para leer mi carta 💌</div>
+        <div class="texto-inicio">Toca para abrir 💌</div>
 
-        <!-- La carta -->
         <div class="carta">
             <h1>¡Feliz Cumpleaños! ✨</h1>
             <p>
                 ¡Hola mi amor! 
                 
-                Escribí esta carta solo para recordarte lo muchísimo que te amo y lo feliz que soy a tu lado. 
+                Escribí esta carta solo para recordarte lo muchísimo que te amo y lo feliz que soy a tu lado.
                 
                 Que este nuevo año de vida te traiga hermosos momentos y que todos tus deseos se cumplan. 
                 
