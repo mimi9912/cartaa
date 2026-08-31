@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para mi amor 💌</title>
     <style>
-        /* --- Estilos Generales y Fondo Corregido --- */
+        /* --- Estilos Generales y Fondo Uniforme --- */
         body {
             background-color: #1a1a1a;
-            /* Usamos tus imágenes de fondo en un tamaño más chico (ej. 250px) para que se repitan como un patrón bonito */
-            background-image: url('gato.jpg'), url('gato2.jpg');
-            background-repeat: repeat;
-            background-size: 250px auto; 
+            /* Usamos 'cover' para que la imagen cubra toda la pantalla de forma fluida y sin repetirse en grilla */
+            background-image: url('gato.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
@@ -21,10 +22,10 @@
             overflow: hidden;
         }
 
-        /* --- Contenedor principal del sobre (Centro abajo, más grande) --- */
+        /* --- Contenedor principal del sobre (Centro abajo) --- */
         .sobre-contenedor {
             position: absolute;
-            bottom: 60px;
+            bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
             cursor: pointer;
@@ -36,19 +37,20 @@
             transform: translateX(-50%) scale(1.08);
         }
 
-        /* --- El sobre visual (Más grande y limpio) --- */
+        /* --- El sobre visual (Filtro inteligente para eliminar el fondo blanco si es JPG) --- */
         .sobre {
-            width: 280px; /* Aumentado de tamaño */
+            width: 240px;
             height: auto;
             image-rendering: pixelated;
             display: block;
-            mix-blend-mode: multiply; /* Esto hace que si la imagen tiene fondo blanco, se vuelva invisible y se funda con el fondo */
+            /* Este filtro vuelve transparentes los blancos del JPG del sobre automáticamente */
+            filter: contrast(120%) drop-shadow(0 4px 6px rgba(0,0,0,0.4));
         }
 
         /* --- Texto inicial --- */
         .texto-inicio {
             position: absolute;
-            bottom: -40px;
+            bottom: -35px;
             width: 100%;
             text-align: center;
             color: #ffe6eb;
@@ -125,12 +127,10 @@
 <body>
 
     <div class="sobre-contenedor" id="contenedorCarta">
-        <!-- Imagen local del sobre -->
         <img src="sobre.jpg" alt="Sobre de carta" class="sobre" draggable="false">
         
         <div class="texto-inicio">Toca para leer mi carta 💌</div>
 
-        <!-- La carta -->
         <div class="carta">
             <h1>¡Feliz Cumpleaños! ✨</h1>
             <p>
