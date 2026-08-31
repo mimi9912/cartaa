@@ -7,14 +7,12 @@
     <style>
         /* --- Estilos Generales y Fondo --- */
         body {
-            /* Usamos un fondo oscuro y texturizado que combina tus imágenes */
             background-color: #1a1a1a;
-            background-image: 
-                url('https://i.imgur.com/N6k120y.png'), /* Textura oscura sutil */
-                url('https://i.imgur.com/lK9z5Jj.png'); /* Patrón damasco oscuro */
-            background-repeat: repeat, repeat;
-            background-size: auto, 300px; /* Patrón más pequeño para que se repita */
-            font-family: 'Courier New', Courier, monospace; /* Fuente estilo máquina de escribir */
+            /* Usamos tus imágenes de fondo subidas localmente */
+            background-image: url('gato.jpg'), url('gato2.jpg');
+            background-repeat: repeat;
+            background-size: cover;
+            font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,150 +21,134 @@
             overflow: hidden;
         }
 
-        /* --- Contenedor principal del sobre --- */
+        /* --- Contenedor principal del sobre (Centro abajo) --- */
         .sobre-contenedor {
             position: absolute;
-            bottom: 50px; /* Ubicado abajo */
+            bottom: 40px;
             left: 50%;
-            transform: translateX(-50%); /* Centrado horizontalmente */
+            transform: translateX(-50%);
             cursor: pointer;
             transition: transform 0.4s ease;
             z-index: 10;
-            /* Efecto de resalte sutil para que destaque */
-            filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.6)); 
+            filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.7)); 
         }
         .sobre-contenedor:hover {
             transform: translateX(-50%) scale(1.05);
         }
 
-        /* --- El sobre visual (IMAGEN DE PINTEREST 1) --- */
+        /* --- El sobre visual (Tus imágenes locales) --- */
         .sobre {
-            width: 200px; /* Ajustado al tamaño del pixel art */
+            width: 220px;
             height: auto;
-            image-rendering: pixelated; /* Mantiene los píxeles nítidos */
+            image-rendering: pixelated;
             display: block;
         }
 
-        /* --- Texto inicial "Toca para abrir" --- */
+        /* --- Texto inicial --- */
         .texto-inicio {
             position: absolute;
             bottom: -35px;
             width: 100%;
             text-align: center;
-            color: #ffb7c5; /* Rosita claro */
+            color: #ffb7c5;
             font-size: 14px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
             animation: parpadear 1.5s infinite;
             pointer-events: none;
+            white-space: nowrap;
         }
 
-        /* --- Estilos de la carta (IMAGEN DE PINTEREST 2) --- */
+        /* --- Estilos de la carta --- */
         .carta {
-            background-image: url('https://i.imgur.com/X4vB6qZ.png'); /* Papel antiguo */
-            background-size: cover;
+            /* Usamos la imagen del papel de la carta que subiste */
+            background-image: url('carta.png');
+            background-size: 100% 100%;
             background-position: center;
-            width: 280px;
-            height: 360px;
-            padding: 30px;
-            border-radius: 10px;
+            background-repeat: no-repeat;
+            width: 300px;
+            height: 380px;
+            padding: 40px 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
             position: absolute;
-            top: 50px; /* Empieza dentro del sobre */
+            top: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(0) scale(0.8);
             z-index: 1;
             transition: transform 1s ease-in-out, opacity 0.8s ease-in-out;
-            opacity: 0; /* Invisible al principio */
+            opacity: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             box-sizing: border-box;
-            color: #4a3f35; /* Color de tinta oscuro */
-            border: 1px solid #bfae9b; /* Borde sutil del papel */
+            color: #3b2f2f; /* Tinta oscura para que se lea bien */
         }
         
         .carta h1 {
-            font-size: 20px;
+            font-size: 18px;
             margin-top: 0;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             text-align: center;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
         
         .carta p {
-            line-height: 1.8;
-            font-size: 15px;
+            line-height: 1.6;
+            font-size: 14px;
             text-align: left;
-            white-space: pre-line; /* Respeta los saltos de línea */
+            white-space: pre-line;
             margin: 0;
         }
 
-        /* --- Estados de la animación (Clases añadidas por JS) --- */
-
-        /* Cuando el sobre está abierto */
+        /* --- Animación de apertura --- */
         .sobre-contenedor.abierto .carta {
-            transform: translateX(-50%) translateY(-220px) scale(1); /* Saca la carta hacia arriba */
+            transform: translateX(-50%) translateY(-240px) scale(1);
             opacity: 1;
             z-index: 15;
         }
         
         .sobre-contenedor.abierto .sobre {
-            opacity: 0.3; /* El sobre se atenúa al abrirse */
+            opacity: 0.3;
         }
 
         .sobre-contenedor.abierto .texto-inicio {
-            opacity: 0; /* Oculta el texto */
+            opacity: 0;
         }
 
-        /* Animación de parpadeo */
         @keyframes parpadear {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.4; }
         }
-
     </style>
 </head>
 <body>
 
-    <!-- Contenedor principal del sobre (abajo en el centro) -->
     <div class="sobre-contenedor" id="contenedorCarta">
+        <!-- Imagen local del sobre -->
+        <img src="sobre.jpg" alt="Sobre de carta" class="sobre" draggable="false">
         
-        <!-- El sobre visual (Imagen 1) -->
-        <img src="https://i.imgur.com/bfae9b.png" alt="Sobre con alas y corazón" class="sobre" draggable="false">
-        
-        <!-- Texto inicial -->
         <div class="texto-inicio">Toca para leer mi carta 💌</div>
 
-        <!-- La carta que sale (Imagen 2) -->
+        <!-- La carta -->
         <div class="carta">
             <h1>¡Feliz Cumpleaños! ✨</h1>
             <p>
                 ¡Hola mi amor! 
                 
-                Escribí esta carta en un lugar mágico solo para decirte cuánto te amo y lo especial que eres en mi vida. 
+                Escribí esta carta solo para recordarte lo muchísimo que te amo y lo feliz que soy a tu lado. 
                 
-                Gracias por compartir este nuevo año conmigo. Deseo que todos tus sueños se cumplan y que sigamos siendo tan felices juntos. 
+                Que este nuevo año de vida te traiga hermosos momentos y que todos tus deseos se cumplan. 
                 
-                Te amo con todo mi corazón.
-                
-                Con amor, 
-                [Tu Nombre]
+                Te amo con todo mi corazón. ❤️
             </p>
         </div>
-
     </div>
 
     <script>
-        // JavaScript simple para manejar el clic
         const contenedor = document.getElementById('contenedorCarta');
-        
         contenedor.addEventListener('click', () => {
             contenedor.classList.toggle('abierto');
         });
     </script>
-
 </body>
 </html>
