@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para mi amor 💌</title>
     <style>
-        /* --- 1. FONDO BLANCO Y GATITO TAMAÑO NORMAL --- */
+        /* --- 1. FONDO BLANCO --- */
         body {
-            background-color: #ffffff; /* Blanco puro para fundirse con tus imágenes */
-            background-image: url('gato.jpg');
-            background-repeat: no-repeat;
-            background-position: center top 10%; /* Gatito centrado arriba */
-            background-size: 350px; /* TAMAÑO FIJO: ¡Chau gato gigante! */
+            background-color: #ffffff; /* Blanco para que desaparezcan los bordes de tus imágenes JPG */
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
@@ -21,7 +17,30 @@
             overflow: hidden;
         }
 
-        /* --- 2. CONTENEDOR DEL SOBRE --- */
+        /* --- 2. CONTENEDOR DE IMÁGENES FLOTANTES --- */
+        .fondo-elementos {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none; /* Para que no molesten al hacer clic en la carta */
+        }
+
+        .elemento-flotante {
+            position: absolute;
+            opacity: 0.8;
+            animation: flotar-fondo 6s ease-in-out infinite;
+            mix-blend-mode: multiply; /* Esto borra el fondo blanco de tus fotos */
+        }
+
+        @keyframes flotar-fondo {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(10deg); }
+        }
+
+        /* --- 3. CONTENEDOR DEL SOBRE --- */
         .sobre-contenedor {
             position: absolute;
             bottom: 40px;
@@ -31,27 +50,26 @@
             transition: transform 0.4s ease;
             z-index: 10;
         }
+        
         .sobre-contenedor:hover {
             transform: translateX(-50%) scale(1.05);
         }
 
-        /* --- 3. EL SOBRE MÁGICO --- */
+        /* --- 4. EL SOBRE --- */
         .sobre {
             width: 250px;
             height: auto;
-            image-rendering: pixelated;
             display: block;
-            /* ¡MAGIA! Esto borra el fondo blanco del JPG y deja solo tu dibujo */
-            mix-blend-mode: multiply; 
+            mix-blend-mode: multiply; /* Borra el cuadrado blanco del sobre */
         }
 
-        /* --- Texto inicial --- */
+        /* Texto inicial */
         .texto-inicio {
             position: absolute;
             bottom: -30px;
             width: 100%;
             text-align: center;
-            color: #ff6b81; /* Rosita que se lee bien en blanco */
+            color: #d81b60;
             font-size: 15px;
             font-weight: bold;
             animation: parpadear 1.5s infinite;
@@ -59,7 +77,7 @@
             white-space: nowrap;
         }
 
-        /* --- 4. LA CARTA --- */
+        /* --- 5. LA CARTA --- */
         .carta {
             background-image: url('carta.png');
             background-size: 100% 100%;
@@ -67,7 +85,7 @@
             background-repeat: no-repeat;
             width: 320px;
             height: 420px;
-            padding: 45px 30px; /* Espacio para que el texto no pise a tus gatitos editados */
+            padding: 50px 35px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             position: absolute;
             bottom: 20px; 
@@ -78,7 +96,7 @@
             opacity: 0;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Hace que el texto empiece desde arriba */
+            justify-content: flex-start;
             align-items: center;
             box-sizing: border-box;
             color: #3b2f2f;
@@ -100,15 +118,15 @@
             margin: 0;
         }
 
-        /* --- Animación de apertura --- */
+        /* --- 6. ANIMACIÓN DE APERTURA --- */
         .sobre-contenedor.abierto .carta {
-            transform: translateX(-50%) translateY(-200px) scale(1);
+            transform: translateX(-50%) translateY(-220px) scale(1);
             opacity: 1;
             z-index: 15;
         }
         
         .sobre-contenedor.abierto .sobre {
-            opacity: 0; /* El sobre se oculta suavemente para que puedas leer bien la carta */
+            opacity: 0;
             transition: opacity 0.5s ease;
         }
 
@@ -123,6 +141,9 @@
     </style>
 </head>
 <body>
+
+    <!-- Aquí van a aparecer tus imágenes flotando mágicamente -->
+    <div class="fondo-elementos" id="fondoElementos"></div>
 
     <div class="sobre-contenedor" id="contenedorCarta">
         <img src="sobre.jpg" alt="Sobre de carta" class="sobre" draggable="false">
@@ -143,10 +164,38 @@
     </div>
 
     <script>
+        // Abrir y cerrar la carta
         const contenedor = document.getElementById('contenedorCarta');
         contenedor.addEventListener('click', () => {
             contenedor.classList.toggle('abierto');
         });
+
+        // Script para que tus propias imágenes floten por la pantalla
+        const fondo = document.getElementById('fondoElementos');
+        
+        // ACÁ ESTÁN TUS ARCHIVOS: el código elegirá al azar entre estos para llenar la pantalla
+        const imagenesFlotantes = ['gato.jpg', 'gato2.png', 'perro.png', 'messi.png'];
+        const cantidadDeImagenes = 25; // Cuántas imágenes querés que floten en total
+
+        for (let i = 0; i < cantidadDeImagenes; i++) {
+            const img = document.createElement('img');
+            
+            // Elige una imagen al azar de tu lista
+            img.src = imagenesFlotantes[Math.floor(Math.random() * imagenesFlotantes.length)];
+            img.classList.add('elemento-flotante');
+            
+            // Posición aleatoria
+            img.style.left = Math.random() * 95 + '%';
+            img.style.top = Math.random() * 95 + '%';
+            
+            // Tamaño aleatorio (entre 40px y 80px para que no sean gigantes)
+            img.style.width = (Math.random() * 40 + 40) + 'px';
+            
+            // Retraso aleatorio para que floten a destiempo
+            img.style.animationDelay = (Math.random() * 5) + 's';
+            
+            fondo.appendChild(img);
+        }
     </script>
 </body>
 </html>
