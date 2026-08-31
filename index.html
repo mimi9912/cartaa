@@ -40,22 +40,23 @@
             50% { transform: translateY(-25px) rotate(10deg); }
         }
 
-        /* --- 3. MESSI EN EL CENTRO ABAJO --- */
+        /* --- 3. MESSI EN EL CENTRO ABAJO (TAMAÑO CORREGIDO) --- */
         .messi-abajo {
             position: absolute;
-            bottom: -20px; /* Pegado bien abajo */
+            bottom: 0px; /* Pegado bien al borde inferior */
             left: 50%;
             transform: translateX(-50%);
-            width: 280px; /* Tamaño de Messi (puedes cambiar este número si lo quieres más grande/chico) */
+            height: 190px; /* Le damos altura fija para que no tape la carta */
+            width: auto;
             z-index: 5;
-            mix-blend-mode: multiply; /* Para borrarle el fondo blanco si tiene */
-            pointer-events: none; /* Para que no moleste si haces clic */
+            mix-blend-mode: multiply; 
+            pointer-events: none; 
         }
 
-        /* --- 4. CONTENEDOR DEL SOBRE (MÁS ARRIBA) --- */
+        /* --- 4. CONTENEDOR DEL SOBRE (JUSTO ARRIBA DE MESSI) --- */
         .sobre-contenedor {
             position: absolute;
-            bottom: 260px; /* Lo subimos para que quede arriba de Messi */
+            bottom: 190px; /* Se apoya justo donde termina Messi */
             left: 50%;
             transform: translateX(-50%);
             cursor: pointer;
@@ -69,7 +70,7 @@
 
         /* --- 5. EL SOBRE --- */
         .sobre {
-            width: 250px;
+            width: 220px; /* Un pelín más chico para que todo encaje mejor */
             height: auto;
             display: block;
             mix-blend-mode: multiply; 
@@ -78,7 +79,7 @@
         /* Texto inicial */
         .texto-inicio {
             position: absolute;
-            bottom: -30px;
+            bottom: -25px; /* Más pegadito al sobre para que no toque a Messi */
             width: 100%;
             text-align: center;
             color: #d81b60;
@@ -89,21 +90,21 @@
             white-space: nowrap;
         }
 
-        /* --- 6. LA CARTA --- */
+        /* --- 6. LA CARTA (TAMAÑO ADAPTADO) --- */
         .carta {
             background-image: url('carta.png');
             background-size: 100% 100%;
             background-position: center;
             background-repeat: no-repeat;
-            width: 320px;
-            height: 420px;
-            padding: 50px 35px;
+            width: 300px;
+            height: 350px; /* Un poco más corta para que no se salga de la pantalla */
+            padding: 40px 30px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             position: absolute;
-            bottom: 20px; 
+            bottom: 10px; 
             left: 50%;
             transform: translateX(-50%) translateY(0) scale(0.8);
-            z-index: 4; /* Lo bajamos un nivel para que no tape a Messi si baja mucho */
+            z-index: 4; 
             transition: transform 1s ease-in-out, opacity 0.8s ease-in-out;
             opacity: 0;
             display: flex;
@@ -115,9 +116,9 @@
         }
         
         .carta h1 {
-            font-size: 18px;
-            margin-top: 10px;
-            margin-bottom: 15px;
+            font-size: 17px;
+            margin-top: 5px;
+            margin-bottom: 10px;
             text-align: center;
             font-weight: bold;
         }
@@ -130,17 +131,17 @@
             margin: 0;
         }
 
-        /* --- 7. ANIMACIÓN DE APERTURA --- */
+        /* --- 7. ANIMACIÓN DE APERTURA (SUBE LO JUSTO Y NECESARIO) --- */
         .sobre-contenedor.abierto .carta {
-            /* Como el sobre ya está más arriba, la carta sube un poquito menos para no salirse de la pantalla */
-            transform: translateX(-50%) translateY(-150px) scale(1);
+            /* Ahora sube mucho menos, quedándose centrada en la pantalla */
+            transform: translateX(-50%) translateY(-110px) scale(1);
             opacity: 1;
             z-index: 15;
         }
         
         .sobre-contenedor.abierto .sobre {
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.4s ease;
         }
 
         .sobre-contenedor.abierto .texto-inicio {
@@ -190,9 +191,8 @@
         // Script para que floten los gatitos y perritos
         const fondo = document.getElementById('fondoElementos');
         
-        // Saqué a messi de acá para que no flote y solo aparezca abajo
         const imagenesFlotantes = ['gato.jpg', 'gato2.png', 'perro.png'];
-        const cantidadDeImagenes = 100; 
+        const cantidadDeImagenes = 25; 
 
         for (let i = 0; i < cantidadDeImagenes; i++) {
             const img = document.createElement('img');
