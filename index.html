@@ -91,14 +91,15 @@
         }
 
         /* --- 6. LA CARTA (TAMAÑO ADAPTADO) --- */
+       /* --- 6. LA CARTA --- */
         .carta {
-            background-image: url('carta.png');
-            background-size: cover;
-            background-position: top center;
-            background-repeat: no-repeat;
-            width: 330px;
-            height: 550px; /* Un poco más corta para que no se salga de la pantalla */
-            padding: 60px 30px 30px 30px;
+            /* ¡Magia pura! Dibujamos el papel y las líneas directamente con código */
+            background-color: #fafafa; /* Color de fondo del papel */
+            background-image: repeating-linear-gradient(transparent, transparent 28px, #cccccc 28px, #cccccc 29px);
+            
+            width: 320px;
+            height: 550px; 
+            padding: 45px 30px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             position: absolute;
             bottom: 10px; 
@@ -113,6 +114,7 @@
             align-items: center;
             box-sizing: border-box;
             color: #3b2f2f;
+            border-radius: 4px; /* Un bordecito apenitas curvo para que parezca libreta */
         }
         
         .carta h1 {
